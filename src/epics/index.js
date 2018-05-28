@@ -6,6 +6,8 @@ import {
     fetchUserFailed,
     fetchReposSuccess,
     fetchReposFailed,
+    fetchCommitsSuccess,
+    fetchCommitsFailed,
 } from '../actions';
 import { ajax } from 'rxjs/observable/dom/ajax';
 import { Observable } from 'rxjs';
@@ -37,9 +39,9 @@ export const fetchCommits = actions$ =>
         .ofType(FETCH_COMMITS)
         .mergeMap(action =>
             ajax.getJSON(action.payload.commitsUrl)
-                .map(repos => fetchReposSuccess(repos))
-                .takeUntil(actions$.ofType(FETCH_REPOS))
-                .catch(error => Observable.of(fetchReposFailed()))
+                .map(commits => fetchCommitsSuccess(commits))
+                .takeUntil(actions$.ofType(FETCH_COMMITS))
+                .catch(error => Observable.of(fetchCommitsFailed()))
         );
 
 
@@ -47,6 +49,7 @@ export const fetchCommits = actions$ =>
 export default combineEpics(
     fetchUser,
     fetchRepos,
+    fetchCommits,
 );
 
 

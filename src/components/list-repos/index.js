@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { withRouter } from "react-router";
 
 import {
     ListGroup,
@@ -8,19 +9,24 @@ import {
     Button,
 } from "react-bootstrap";
 
-// Descructuring
-const ListReposComponent = ({ repoLink, fetchReposHandler, repos }) => {
+// Destructuring
+const ListReposComponent = ({ repoLink, fetchReposHandler, history, repos }) => {
 
     // arrow function
     const fetchRepos = () => {
         fetchReposHandler(repoLink);
     };
 
+    //ES6 Template string
+    const goToCommitsPage = (repoName) => {
+        history.push(`/commits/${repoName}`);
+    };
+
     const generateReposList = () => {
         return (
             <ListGroup style={{ padding: "5px" }}>
                 {repos.map((item) => (
-                    <ListGroupItem href={item.url + "/commits"} key={item.id}>{item.name}</ListGroupItem>)
+                    <ListGroupItem onClick={() => goToCommitsPage(item.name)} key={item.id}>{item.name}</ListGroupItem>)
                 )}
             </ListGroup>
         )
@@ -55,4 +61,5 @@ const mapStateToProps = (state) => {
     });
 };
 
-export const ListRepos = connect(mapStateToProps, null)(ListReposComponent);
+// TODO: Not sure this is the best solution to use withRouter here ... needs consideration
+export const ListRepos = withRouter(connect(mapStateToProps, null)(ListReposComponent));

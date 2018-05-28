@@ -7,6 +7,7 @@ import {
     FETCH_COMMITS_FAILED,
 } from "../constants";
 import { combineReducers } from "redux";
+import { routerReducer } from "react-router-redux";
 
 const userInitialState = {};
 const reposInitialState = [];
@@ -59,4 +60,5 @@ export default combineReducers({
     user,
     repos,
     commits,
+    router: routerReducer,
 });
