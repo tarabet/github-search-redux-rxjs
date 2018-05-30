@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import { ListCommits } from "./components/list-commits";
+import { ListCommitsConnected } from "./components/list-commits";
 import registerServiceWorker from './registerServiceWorker';
 import { Provider } from "react-redux";
 import {
@@ -36,7 +36,7 @@ ReactDOM.render(
         <ConnectedRouter history={history}>
             <div>
                 <Route exact path="/" component={App}/>
-                <Route exact path="/commits/:repoName" component={ListCommits}/>
+                <Route exact path="/commits/:repoName" component={ListCommitsConnected}/>
             </div>
         </ConnectedRouter>
     </Provider>,  document.getElementById('root'));

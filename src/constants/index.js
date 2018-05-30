@@ -9,3 +9,7 @@ export const FETCH_REPOS_FAILED = "fetch/repos/failed";
 export const FETCH_COMMITS = "fetch/commits";
 export const FETCH_COMMITS_SUCCESS = "fetch/commits/success";
 export const FETCH_COMMITS_FAILED = "fetch/commits/failed";
+
+export const SEARCH_COMMITS = "search/commits";
+export const SEARCH_COMMITS_SUCCESS = "search/commits/success";
+export const SEARCH_COMMITS_FAILED = "search/commits/failed";

@@ -18,15 +18,23 @@ const ListReposComponent = ({ repoLink, fetchReposHandler, history, repos }) => 
     };
 
     //ES6 Template string
-    const goToCommitsPage = (repoName) => {
-        history.push(`/commits/${repoName}`);
+    const goToCommitsPage = (repoName, repoUrl) => {
+        history.push({
+            pathname: `/commits/${repoName}`,
+            commitsUrl: `${repoUrl}/commits?per_page=20`,
+        });
     };
 
     const generateReposList = () => {
         return (
             <ListGroup style={{ padding: "5px" }}>
                 {repos.map((item) => (
-                    <ListGroupItem onClick={() => goToCommitsPage(item.name)} key={item.id}>{item.name}</ListGroupItem>)
+                    <ListGroupItem
+                        onClick={() => goToCommitsPage(item.name, item.url)}
+                        key={item.id}
+                    >
+                        {item.name}
+                    </ListGroupItem>)
                 )}
             </ListGroup>
         )

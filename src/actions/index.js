@@ -8,6 +8,9 @@ import {
     FETCH_COMMITS,
     FETCH_COMMITS_SUCCESS,
     FETCH_COMMITS_FAILED,
+    SEARCH_COMMITS,
+    SEARCH_COMMITS_FAILED,
+    SEARCH_COMMITS_SUCCESS,
 } from "../constants";
 
 export const fetchUser = username => ({
@@ -50,4 +53,18 @@ export const fetchCommitsSuccess = commits => ({
 
 export const fetchCommitsFailed = () => ({
     type: FETCH_COMMITS_FAILED,
+});
+
+export const searchCommits = searchUrl => ({
+    type: SEARCH_COMMITS,
+    payload: { searchUrl }
+});
+
+export const searchCommitsSuccess = commits => ({
+    type: SEARCH_COMMITS_SUCCESS,
+    payload: commits,
+});
+
+export const searchCommitsFailed = () => ({
+    type: SEARCH_COMMITS_FAILED,
 });

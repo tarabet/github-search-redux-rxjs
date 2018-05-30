@@ -7,7 +7,9 @@ import {
     FormControl,
 } from "react-bootstrap";
 
+// Destructuring function args
 export const SearchForm = ({searchUser}) => {
+    // use refs to avoid state creation
     let queryField;
 
     const onSubmit = (e) => {

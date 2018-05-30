@@ -1,6 +1,6 @@
 import 'rxjs/Rx';
 import { combineEpics } from 'redux-observable';
-import { FETCH_USER, FETCH_REPOS, FETCH_COMMITS } from '../constants';
+import { FETCH_USER, FETCH_REPOS, FETCH_COMMITS, SEARCH_COMMITS, } from '../constants';
 import {
     fetchUserSuccess,
     fetchUserFailed,
@@ -8,6 +8,8 @@ import {
     fetchReposFailed,
     fetchCommitsSuccess,
     fetchCommitsFailed,
+    searchCommitsSuccess,
+    searchCommitsFailed,
 } from '../actions';
 import { ajax } from 'rxjs/observable/dom/ajax';
 import { Observable } from 'rxjs';
@@ -44,12 +46,28 @@ export const fetchCommits = actions$ =>
                 .catch(error => Observable.of(fetchCommitsFailed()))
         );
 
-
+export const searchCommits = actions$ =>
+    actions$
+        .ofType(SEARCH_COMMITS)
+        .mergeMap(action =>
+            ajax({
+                method: "GET",
+                url: action.payload.searchUrl,
+                responseType: "json",
+                headers: {
+                    Accept: "application/vnd.github.cloak-preview",
+                },
+            })
+                .map(resp => searchCommitsSuccess(resp.response.items))
+                .takeUntil(actions$.ofType(SEARCH_COMMITS))
+                .catch(error => Observable.of(searchCommitsFailed()))
+        );
 
 export default combineEpics(
     fetchUser,
     fetchRepos,
     fetchCommits,
+    searchCommits,
 );
 
 
